@@ -9,6 +9,7 @@ RUN apt-get update && \
     lsb-release \
     ca-certificates \
     curl
+    
 
 # Install Trivy
 RUN wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | apt-key add - && \
