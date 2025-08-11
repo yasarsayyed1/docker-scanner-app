@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./src:/app/src
+    env_file:
+      - .env
+    depends_on:
+      - scanner
+
+  scanner:
+    image: trivy:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - TRIVY_SEVERITY=HIGH,CRITICAL
+      - TRIVY_IGNORE_UNFIXED=true
+
+networks:
+  default:
+    driver: bridge
