@@ -19,9 +19,9 @@ RUN wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | apt-ke
 
 WORKDIR /app
 
-# Install Python dependencies
+# Install Python dependencies with --no-cache-dir
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
 COPY src/ .
