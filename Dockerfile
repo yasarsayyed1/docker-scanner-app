@@ -8,8 +8,8 @@ RUN apt-get update && \
     gnupg \
     lsb-release \
     ca-certificates \
-    curl
-    
+    curl \
+    dos2unix
 
 # Install Trivy
 RUN wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | apt-key add - && \
@@ -26,10 +26,11 @@ RUN pip install -r requirements.txt
 # Copy application code
 COPY . .
 
+# Fix line endings for shell script
+COPY start.sh .
+RUN dos2unix start.sh && chmod +x start.sh
+
 # Expose port
 EXPOSE 8000
 
-# Run the application with a startup script
-COPY start.sh .
-RUN chmod +x start.sh
 CMD ["./start.sh"]
