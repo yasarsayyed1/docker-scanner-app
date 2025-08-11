@@ -1,6 +1,6 @@
 FROM python:3.9-slim
 
-# Install system dependencies, Docker, and Trivy
+# Install system dependencies and Trivy
 RUN apt-get update && \
     apt-get install -y \
     wget \
@@ -24,10 +24,10 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # Copy application code
-COPY . .
-
-# Fix line endings for shell script
+COPY src/ .
 COPY start.sh .
+
+# Fix line endings and make script executable
 RUN dos2unix start.sh && chmod +x start.sh
 
 # Expose port

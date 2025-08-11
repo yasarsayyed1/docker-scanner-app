@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify
-from scanner import scan_image
+from scanner import scan_image  # Note: scanner.py should be in the same directory
 import re
 
 app = Flask(__name__)
