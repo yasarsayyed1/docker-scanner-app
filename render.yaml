@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: docker-scanner-app
+    env: docker
+    region: singapore  # Choose your preferred region
+    plan: free  # or other plans like starter, standard
+    branch: main
+    dockerfilePath: ./Dockerfile
+    numInstances: 1
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: PYTHON_VERSION
+        value: 3.9.0
+    autoDeploy: true
