@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 from scanner import scan_image  # Note: scanner.py should be in the same directory
 import re
+import docker
 
 app = Flask(__name__)
 
@@ -28,6 +29,17 @@ def scan():
         return render_template('results.html', results=results)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+@app.route('/check-docker', methods=['GET'])
+def check_docker():
+    try:
+        client = docker.from_env(environment={
+            'DOCKER_HOST': 'npipe:////./pipe/docker_engine'
+        })
+        client.ping()
+        return jsonify({'status': 'ok', 'message': 'Docker connection successful'})
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)

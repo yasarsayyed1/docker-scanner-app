@@ -10,32 +10,65 @@
     <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
+                <!-- Project Description -->
+                <div class="card shadow mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title text-center mb-4">Docker Image Vulnerability Scanner</h2>
+                        <div class="alert alert-info">
+                            <h5>🚧 Work in Progress</h5>
+                            <p>This project is currently under development. Coming soon with comprehensive features:</p>
+                            <ul>
+                                <li>Scan Docker images for security vulnerabilities</li>
+                                <li>Detailed vulnerability reports and analysis</li>
+                                <li>Support for private registries</li>
+                                <li>Real-time scanning updates</li>
+                                <li>Export results in multiple formats</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scanner Form -->
                 <div class="card shadow">
                     <div class="card-header bg-primary text-white">
-                        <h3 class="mb-0">Docker Image Scanner</h3>
+                        <h3 class="mb-0">Image Scanner</h3>
                     </div>
                     <div class="card-body">
-                        <form action="/scan" method="POST">
+                        <form id="scanForm" onsubmit="return false;">
                             <div class="mb-3">
                                 <label for="image_name" class="form-label">Docker Image Name/Path</label>
                                 <input type="text" class="form-control" id="image_name" name="image_name" 
-                                    placeholder="Example: registry.example.com/organization/image:tag" required>
+                                    placeholder="Example: nginx:latest" required>
                                 <div class="form-text">
-                                    <h6>Supported formats:</h6>
-                                    <ul>
-                                        <li>Local images: nginx:latest, ubuntu:20.04</li>
-                                        <li>Docker Hub: library/nginx:latest</li>
-                                        <li>Private registry: registry.example.com/org/image:tag</li>
-                                    </ul>
+                                    Enter the name of the Docker image you want to scan
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Scan Image</button>
+                            <button type="submit" class="btn btn-primary" onclick="scanImage()">Scan Image</button>
                         </form>
+                        
+                        <!-- Results Display -->
+                        <div id="results" class="mt-4"></div>
+                        <div id="error" class="alert alert-danger mt-4" style="display: none;"></div>
+                        <div id="loading" class="text-center mt-4" style="display: none;">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-2">Scanning image... This may take a few minutes.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="container text-center mt-4 pb-4">
+        <p class="text-muted">
+            &copy; 2025 Yasar Sayyed. All Rights Reserved.<br>
+            <small>Currently in development - Stay tuned for updates!</small>
+        </p>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
 document.querySelector('form').addEventListener('submit', async (e) => {
